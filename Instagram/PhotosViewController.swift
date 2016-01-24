@@ -1,9 +1,9 @@
-//
+//  ********* THIS IS A WORKING VERSION  *********
 //  PhotosViewController.swift
 //  Instagram
 //
 //  Created by JP on 1/21/16.
-//  Copyright © 2016 tpham44. All rights reserved.
+//  Copyright © 2016 Thanh Pham (JEREMY) and Noureddine . All rights reserved.
 //
 
 import UIKit
@@ -19,6 +19,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        tableView.delegate = self
         
         tableView.rowHeight = 320 //set static row height to the table view
 
@@ -38,7 +41,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
+                            
                             self.instagram = responseDictionary["data"] as? [NSDictionary]
+                            self.tableView.dataSource = self
                             self.tableView.reloadData()
                     }
                 }
@@ -52,18 +57,24 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 20
+        if let instagram = instagram {
+            return instagram.count
+        }
+        else {
+            return 0
+        }
+
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CellView", forIndexPath: indexPath) as! CellView
         
-        let instagramArrayElements = instagram![indexPath.row]  // parse the element of the Instagram's array.
+        let instagramElement = instagram![indexPath.row]  // parse the element of the Instagram's array.
         
-        let posterPath = instagramArrayElements.valueForKeyPath("images.low_resolution.url") as! String
+        let posterPath = instagramElement.valueForKeyPath("images.low_resolution.url") as! String
         
-        //let baseUrl = "https://image.tmdb.org/t/p/w342"
+       
         
         let imageUrl = NSURL(string: posterPath)
         
