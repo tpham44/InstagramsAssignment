@@ -12,6 +12,7 @@
 		812109641C51D883008491D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 812109621C51D883008491D1 /* Main.storyboard */; };
 		812109661C51D883008491D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 812109651C51D883008491D1 /* Assets.xcassets */; };
 		812109691C51D883008491D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 812109671C51D883008491D1 /* LaunchScreen.storyboard */; };
+		8152EE5A1C5DCEF600A53B11 /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8152EE591C5DCEF600A53B11 /* PhotoDetailsViewController.swift */; };
 		81B91CBC1C51DE390079C00F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B91CBB1C51DE390079C00F /* PhotosViewController.swift */; };
 		81B91CBE1C51E8080079C00F /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B91CBD1C51E8080079C00F /* CellView.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 		812109651C51D883008491D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		812109681C51D883008491D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8121096A1C51D883008491D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8152EE591C5DCEF600A53B11 /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
 		81B91CBB1C51DE390079C00F /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		81B91CBD1C51E8080079C00F /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		A04D6461DC224CFD1B3B4A5D /* Pods-Instagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.debug.xcconfig"; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 		812109521C51D883008491D1 = {
 			isa = PBXGroup;
 			children = (
+				8152EE581C5DCD7900A53B11 /* View Controllers */,
 				8121095D1C51D883008491D1 /* Instagram */,
 				8121095C1C51D883008491D1 /* Products */,
 				B0C525BD3409DA73015C799E /* Pods */,
@@ -80,6 +83,14 @@
 				81B91CBD1C51E8080079C00F /* CellView.swift */,
 			);
 			path = Instagram;
+			sourceTree = "<group>";
+		};
+		8152EE581C5DCD7900A53B11 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8152EE591C5DCEF600A53B11 /* PhotoDetailsViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		B0C525BD3409DA73015C799E /* Pods */ = {
@@ -214,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8152EE5A1C5DCEF600A53B11 /* PhotoDetailsViewController.swift in Sources */,
 				8121095F1C51D883008491D1 /* AppDelegate.swift in Sources */,
 				81B91CBC1C51DE390079C00F /* PhotosViewController.swift in Sources */,
 				81B91CBE1C51E8080079C00F /* CellView.swift in Sources */,
