@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -15,15 +16,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var isMoreDataLoading = false
-
+    var refreshControl: UIRefreshControl!
     var instagram: [NSDictionary]? //Declare variable to retrieve data from API
-
+    
+/***********************______________*******************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //let refreshControl = UIRefreshControl()
-        
-        tableView.delegate = self
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+
         
         tableView.rowHeight = 320 //set static row height to the table view
 
@@ -32,6 +34,21 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
     }
 
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    func onRefresh() {
+        delay(2, closure: {
+            self.refreshControl.endRefreshing()
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -66,6 +83,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     //infite scroll
     func loadMoreData() {
+        tableView.dataSource = self
+        tableView.delegate = self
+
         // Do any additional setup after loading the view.
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
@@ -75,7 +95,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             delegate:nil,
             delegateQueue:NSOperationQueue.mainQueue()
         )
-        
+        self.delay(4.0, closure: {MBProgressHUD.showHUDAddedTo(self.view, animated: true)})
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
@@ -86,8 +106,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                             self.isMoreDataLoading = false
 
                             self.instagram = responseDictionary["data"] as? [NSDictionary]
-                            self.tableView.dataSource = self
+                            //self.tableView.dataSource = self
                             self.tableView.reloadData()
+                            // Hide HUD once the network request comes back (must be done on main UI thread)
+                            self.delay(4.0, closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
+
                     }
                 }
         });
